@@ -37,7 +37,10 @@
         <h1>Upload Study Notes</h1>
         <form method="POST" enctype="multipart/form-data">
             <div class="file-input">
-                <input type="file" name="file" required>
+                {% if filename %}
+                    <p>Using previously uploaded file: <strong>{{ filename }}</strong></p>
+                {% endif %}
+                <input type="file" name="file">
             </div>
             <button type="submit">Generate Questions</button>
         </form>
