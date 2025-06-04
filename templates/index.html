@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Study Question Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        .file-input {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Upload Study Notes</h1>
+        <form method="POST" enctype="multipart/form-data">
+            <div class="file-input">
+                <input type="file" name="file" required>
+            </div>
+            <button type="submit">Generate Questions</button>
+        </form>
+
+        {% if questions %}
+            <h2>Generated Questions from {{ filename }}</h2>
+            <ul>
+                {% for q in questions %}
+                    <li>{{ q }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+</body>
+</html>
