@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, session, redirect, send_from_directory
 import os
 from werkzeug.utils import secure_filename
-from transformers import T5ForConditionalGeneration, T5Tokenizer, pipeline
+from transformers import T5ForConditionalGeneration, T5Tokenizer, AutoModelForSeq2SeqLM, AutoTokenizer, pipeline
 import nltk
 from nltk.tokenize import sent_tokenize
 from random import shuffle
@@ -16,12 +16,74 @@ from docx import Document
 nltk.download('punkt')
 nltk.download('punkt_tab')
 
-# Initialize summarization, question generation, and keyword extraction models
-explainer = pipeline("summarization", model="sshleifer/distilbart-cnn-12-6")
-model = T5ForConditionalGeneration.from_pretrained("mrm8488/t5-base-finetuned-question-generation-ap")
-tokenizer = T5Tokenizer.from_pretrained("t5-base")
-generator = pipeline("text2text-generation", model=model, tokenizer=tokenizer)
-kw_model = KeyBERT()
+# Model identifiers
+QG_MODEL_ID = "mrm8488/t5-base-finetuned-question-generation-ap"
+QG_TOKENIZER_ID = "t5-base"
+SUMMARIZER_ID = "sshleifer/distilbart-cnn-12-6"
+
+# Local save paths
+QG_MODEL_PATH = "./models/qg-model"
+QG_TOKENIZER_PATH = "./models/qg-tokenizer"
+SUM_MODEL_PATH = "./models/summarizer"
+
+# Hugging Face cache location (default)
+HF_CACHE_DIR = os.path.expanduser("~/.cache/huggingface/hub")
+
+
+def ensure_model(model_class, model_id, local_path):
+    """Load a model from local path or download and save it there."""
+    if os.path.exists(local_path):
+        print(f"✅ Found local model at {local_path}")
+        return model_class.from_pretrained(local_path)
+    else:
+        print(f"⬇️ Downloading model from Hugging Face: {model_id}")
+        model = model_class.from_pretrained(model_id)
+        model.save_pretrained(local_path)
+        print(f"📦 Saved to {local_path}")
+        return model
+
+
+def ensure_tokenizer(tokenizer_class, tokenizer_id, local_path):
+    """Ensure a tokenizer exists locally or download/save it."""
+    # Look for key tokenizer files
+    required_files = ["tokenizer_config.json", "tokenizer.json", "vocab.json", "merges.txt"]
+    files_exist = all(os.path.exists(os.path.join(local_path, f)) for f in required_files)
+
+    if files_exist:
+        print(f"✅ Found local tokenizer at {local_path}")
+        return tokenizer_class.from_pretrained(local_path)
+    else:
+        print(f"⬇️ Downloading tokenizer from Hugging Face: {tokenizer_id}")
+        tokenizer = tokenizer_class.from_pretrained(tokenizer_id)
+        tokenizer.save_pretrained(local_path)
+        print(f"📦 Saved tokenizer to {local_path}")
+        return tokenizer
+
+
+def clear_huggingface_cache():
+    """Optionally remove .cache files to save space after saving locally."""
+    if os.path.exists(HF_CACHE_DIR):
+        print(f"🧹 Deleting Hugging Face cache at {HF_CACHE_DIR}...")
+        shutil.rmtree(HF_CACHE_DIR)
+        print("🗑️ Cache cleared.")
+    else:
+        print("ℹ️ No Hugging Face cache found.")
+
+
+# ==== Load all models/tokenizers ====
+
+# Question generation
+qg_model = ensure_model(T5ForConditionalGeneration, QG_MODEL_ID, QG_MODEL_PATH)
+qg_tokenizer = ensure_tokenizer(T5Tokenizer, QG_TOKENIZER_ID, QG_TOKENIZER_PATH)
+generator = pipeline("text2text-generation", model=qg_model, tokenizer=qg_tokenizer)
+
+# Summarization
+sum_model = ensure_model(AutoModelForSeq2SeqLM, SUMMARIZER_ID, SUM_MODEL_PATH)
+sum_tokenizer = ensure_tokenizer(AutoTokenizer, SUMMARIZER_ID, SUM_MODEL_PATH)
+explainer = pipeline("summarization", model=sum_model, tokenizer=sum_tokenizer)
+
+# === Optional: Delete cache to save space ===
+clear_huggingface_cache()
 
 # Flask app configuration
 app = Flask(__name__)
