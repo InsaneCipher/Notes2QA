@@ -1,1 +1,4 @@
 models/
+uploads/*
+!uploads/example_material.txt
+!uploads/.gitkeep
