@@ -1,10 +1,10 @@
-What is hidden in legitimate-looking files or scripts?
-What type of attack is HTTPS Spoofing?
-What percentage of attacks target supply chain suppliers?
 What type of attacks exploit unknown vulnerabilities before a patch is available?
+What is hidden in legitimate-looking files or scripts?
 What did the 2016 DDoS attack on Dyn take down?
+What happens when a compromised site is visited without a user's consent?
+What is the nature of cyberattacks?
 What was the cause of the Dunkin' Donuts 2018 breach?
 What is the most common type of cybersecurity attack?
-What was the purpose of spear phishing emails?
 What happens when a password combination is not successful?
-What is the nature of cyberattacks?
+What was the purpose of spear phishing emails?
+What percentage of attacks target supply chain suppliers?
