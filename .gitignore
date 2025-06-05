@@ -4,3 +4,5 @@ uploads/*
 !uploads/.gitkeep
 explanations/*
 !explanations/.gitkeep
+questions/*
+!questions/.gitkeep
