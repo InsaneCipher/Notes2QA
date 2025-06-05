@@ -2,7 +2,5 @@ models/
 uploads/*
 !uploads/example_material.txt
 !uploads/.gitkeep
-explanations/*
-!explanations/.gitkeep
-questions/*
-!questions/.gitkeep
+explanations/.gitkeep
+questions/.gitkeep
