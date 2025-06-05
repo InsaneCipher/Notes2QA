@@ -2,8 +2,6 @@
 
 **Notes2QA** is an AI-powered web application that automatically generates study questions from uploaded notes. Users can upload files in `.txt`, `.pdf`, `.pptx`, or `.docx` format and receive intelligent questions to help reinforce their understanding of the material.
 
----
-
 ## 🚀 Features
 
 - 📁 Upload study materials in multiple formats
@@ -15,13 +13,10 @@
 - 🧹 Manual cache clearing for fresh processing
 - 🌐 Clean, responsive UI
 
----
 
 ## 📸 Screenshot
 
-![screenshot](static/images/screenshot.png) <!-- Replace with your actual path if needed -->
-
----
+![screenshot](static/images/screenshot.png)
 
 ## 🛠️ Tech Stack
 
