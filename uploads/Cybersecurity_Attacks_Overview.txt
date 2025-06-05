@@ -1,0 +1,109 @@
+
+Understanding Different Types of Cybersecurity Attacks
+
+Cybersecurity threats are constantly evolving as attackers develop more sophisticated methods to breach systems and steal information. Whether targeting individuals, businesses, or governments, cyber attacks can cause severe damage, both financially and reputationally. This document explores the most common and significant types of cybersecurity attacks, including how they work and examples of real-world incidents.
+
+1. Phishing Attacks
+Phishing is a type of social engineering attack where attackers impersonate legitimate entities to trick users into revealing sensitive data such as login credentials or credit card numbers. These attacks are often carried out through deceptive emails, messages, or fake websites.
+Variants include:
+- Spear Phishing: Targeted at specific individuals.
+- Whaling: Aimed at high-level executives.
+- Smishing & Vishing: Conducted via SMS (smishing) or voice calls (vishing).
+Example: In 2020, hackers used spear phishing emails to access Twitter’s internal tools, compromising several high-profile accounts.
+
+2. Malware
+Malware (malicious software) is any software designed to cause damage or gain unauthorized access to a system. It includes viruses, worms, trojans, spyware, ransomware, and adware.
+Common types:
+- Viruses: Attach to legitimate files and spread upon execution.
+- Trojans: Disguise themselves as legitimate software.
+- Ransomware: Encrypts data and demands a ransom.
+- Spyware: Collects information without user consent.
+Example: The 2017 WannaCry ransomware attack infected over 230,000 computers in 150 countries.
+
+3. Man-in-the-Middle (MitM) Attacks
+MitM attacks intercept communications between two parties without their knowledge.
+Common methods:
+- Session Hijacking
+- HTTPS Spoofing
+- Wi-Fi Eavesdropping
+Example: Public Wi-Fi networks are frequent targets due to lack of encryption.
+
+4. Denial-of-Service (DoS) and Distributed Denial-of-Service (DDoS)
+These attacks flood a network or system with traffic to exhaust resources.
+Motives: Hacktivism, business rivalry, ransom.
+Example: The 2016 DDoS attack on DNS provider Dyn took down Twitter, Netflix, etc.
+
+5. SQL Injection
+SQL injection involves inserting malicious SQL code into input fields to manipulate backend databases.
+Targets include login forms and search fields.
+Example: LinkedIn’s 2012 breach involved SQL injection vulnerabilities.
+
+6. Cross-Site Scripting (XSS)
+XSS attacks inject malicious scripts into webpages viewed by users.
+Types:
+- Stored XSS
+- Reflected XSS
+- DOM-Based XSS
+
+7. Credential Stuffing
+This involves using stolen credentials to access multiple accounts.
+Defense: Strong password policies and MFA.
+Example: Dunkin’ Donuts 2018 breach via credential stuffing.
+
+8. Insider Threats
+Originates from within the organization.
+Types:
+- Malicious Insiders
+- Negligent Insiders
+Example: AWS engineer accessed Capital One data in 2019.
+
+9. Zero-Day Exploits
+These exploit unknown vulnerabilities before a patch is available.
+Example: 2021 Microsoft Exchange hack used zero-day flaws.
+
+10. Drive-by Downloads
+Malware is downloaded without consent when visiting a compromised site.
+Defense: Keep software updated, use secure DNS.
+
+11. Brute Force Attacks
+Tries every password combination until successful.
+Mitigation: Rate limiting, account lockouts.
+
+12. Social Engineering
+Manipulates people into giving up confidential data.
+Tactics: Pretexting, baiting, tailgating.
+
+13. DNS Spoofing
+Corrupts DNS records to redirect users.
+Solution: Use DNSSEC.
+
+14. Logic Bombs
+Malicious code that triggers based on a condition.
+Often hidden in legitimate-looking files or scripts.
+
+15. Business Email Compromise (BEC)
+Scammers impersonate executives or vendors for financial fraud.
+Example: Toyota lost $37 million to a BEC scam in 2019.
+
+16. Ransomware-as-a-Service (RaaS)
+Ransomware is leased to affiliates.
+Example: DarkSide RaaS used in Colonial Pipeline attack.
+
+17. Supply Chain Attacks
+Targets vulnerable elements in the supply chain.
+Example: SolarWinds 2020 breach compromised software updates.
+
+18. Cryptojacking
+Uses victim’s devices to mine cryptocurrency.
+Symptoms: Slow performance, overheating.
+
+19. Fileless Attacks
+Run in memory rather than disk, harder to detect.
+Common via PowerShell or WMI scripts.
+
+20. Watering Hole Attacks
+Compromise a trusted website to target a group.
+Example: Targeting government research centers.
+
+Conclusion
+Cyber attacks are diverse and constantly evolving. Defending against them requires understanding, layered security, and continuous vigilance.

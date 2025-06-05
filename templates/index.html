@@ -2,57 +2,225 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Study Question Generator</title>
+    <title>Notes2QA</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            padding: 40px;
-            background-color: #f9f9f9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 10px;
+            color: #333;
+            background-image: url("/static/images/background.png");
         }
 
         .container {
-            max-width: 600px;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            max-width: 1200px;
             margin: auto;
-            background: white;
+        }
+
+        .panel {
+            background: #fff;
             padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            flex: 1;
         }
 
         h1 {
             text-align: center;
+            font-size: 36px;
+            color: #222;
+            margin-bottom: 40px;
+            margin-top: 0px;
+        }
+
+        h2 {
+            font-size: 22px;
+            margin-bottom: 20px;
         }
 
         ul {
-            padding-left: 20px;
+            padding-left: 0;
+            list-style: none;
+        }
+
+        li {
+            margin-bottom: 25px;
+        }
+
+        .question-block {
+            margin-bottom: 20px;
+            max-height: 500px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            padding: 16px;
+        }
+
+        .question-text {
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        textarea {
+            width: 90%;
+            height: 20px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            font-size: 14px;
+            resize: vertical;
         }
 
         .file-input {
-            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .file-upload-area {
+            border: 2px dashed #007BFF;
+            background-color: #f0f8ff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        input[type="file"] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            background-color: #fafafa;
+        }
+
+        button {
+            padding: 12px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .filename {
+            font-weight: bold;
+            color: #007BFF;
+        }
+
+        .logo {
+            width: 500px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            padding-bottom: 30px;
+        }
+
+        .file-types {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #444;
+            background: #f0f4ff;
+            padding: 10px 14px;
+            border-left: 4px solid #007bff;
+            border-radius: 6px;
+        }
+
+        .file-types code {
+            background: #e8eefc;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+
+        .download-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+        .download-btn:hover {
+            background-color: #218838;
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .logo {
+                width: 300px;
+            }
         }
     </style>
 </head>
 <body>
+    <img alt="Notes2QA" src="/static/images/logo.png" class="logo">
     <div class="container">
-        <h1>Upload Study Notes</h1>
-        <form method="POST" enctype="multipart/form-data">
-            <div class="file-input">
-                {% if filename %}
-                    <p>Using previously uploaded file: <strong>{{ filename }}</strong></p>
-                {% endif %}
-                <input type="file" name="file">
-            </div>
-            <button type="submit">Generate Questions</button>
-        </form>
+        <!-- Upload Panel -->
+        <div class="panel">
+            <h2>Upload Study Notes</h2>
+            <form method="POST" enctype="multipart/form-data">
+                <div class="file-input">
+                    <div class="file-upload-area">
+                        {% if filename %}
+                            <p>Using previously uploaded file: <span class="filename">{{ filename }}</span></p>
+                        {% endif %}
+                        <input type="file" name="file">
+                    </div>
+                    <button type="submit">Generate Questions</button>
+                </div>
+            </form>
 
-        {% if questions %}
-            <h2>Generated Questions from {{ filename }}</h2>
-            <ul>
-                {% for q in questions %}
-                    <li>{{ q }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
+          <p><strong>How to use this tool?</strong><br>
+            Upload your study notes using the form on the left. Then click "Generate Questions" to automatically create questions based on your content. You can answer them directly in the text boxes provided.
+            <br><br>
+            <strong>Note:</strong> Generating questions may take up to a minute depending on the size and complexity of the uploaded file.
+            </p>
+          <p class="file-types">
+          <strong>Supported file types</strong><br>
+          You can upload study materials in <code>.txt</code>, <code>.pptx</code>, <code>.pdf</code>, and <code>.docx</code> file formats.
+          Make sure your file includes readable content such as paragraphs or slides for the best results.
+        </p>
+
+            <a href="{{ url_for('download_questions') }}" class="download-btn">Download Questions</a>
+
+            <p>
+              <strong>What is the cache?</strong><br>
+              The cache temporarily stores processed data from previously uploaded files to improve speed and reduce repeated processing times.
+              If you're seeing outdated results or want to free up space, you can clear the cache below.
+            </p>
+
+            <form method="POST" action="/clear_cache" style="margin-top: 20px;">
+                <button type="submit" style="background-color: red; color: white;">Clear Cache</button>
+            </form>
+        </div>
+
+        <!-- Questions Panel -->
+        <div class="panel">
+            {% if questions %}
+                <h2>Generated Questions</h2>
+                <ul>
+                    {% for q in questions %}
+                    <li class="question-block">
+                        <div class="question-text">{{ q }}</div>
+                        <textarea placeholder="Type your answer here..."></textarea>
+                    </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No questions generated yet. Upload a file on the right to begin.</p>
+            {% endif %}
+        </div>
     </div>
 </body>
 </html>
