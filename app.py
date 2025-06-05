@@ -152,6 +152,7 @@ def index():
 
             sentences = sent_tokenize(data)
             num_sentences = len(sentences)
+            print(f"{num_sentences} sentences")
 
             # Dynamically determine chunk size based on sentence count
             if num_sentences < 10:
@@ -168,6 +169,7 @@ def index():
                 chunk = " ".join(sentences[i:i + size])
                 chunk = explainer(chunk, max_length=100, min_length=30, do_sample=False)[0]['summary_text']
                 chunks.append(chunk.strip())
+                print(f"Explanation {i / size}:\n{chunk}")
 
             # Save chunks to cache
             with open(path, "w", encoding="utf-8") as f:
@@ -177,6 +179,7 @@ def index():
         shuffle(chunks)  # Randomize order
 
         # Generate up to 10 valid questions
+        print("Generating questions...")
         questions = []
         used_chunks = set()
         for chunk in chunks:
