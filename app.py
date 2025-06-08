@@ -33,13 +33,13 @@ HF_CACHE_DIR = os.path.expanduser("~/.cache/huggingface/hub")
 def ensure_model(model_class, model_id, local_path):
     """Load a model from local path or download and save it there."""
     if os.path.exists(local_path):
-        print(f"✅ Found local model at {local_path}")
+        print(f"Found local model at {local_path}")
         return model_class.from_pretrained(local_path)
     else:
-        print(f"⬇️ Downloading model from Hugging Face: {model_id}")
+        print(f"Downloading model from Hugging Face: {model_id}")
         model = model_class.from_pretrained(model_id)
         model.save_pretrained(local_path)
-        print(f"📦 Saved to {local_path}")
+        print(f"Saved to {local_path}")
         return model
 
 
@@ -50,24 +50,24 @@ def ensure_tokenizer(tokenizer_class, tokenizer_id, local_path):
     files_exist = all(os.path.exists(os.path.join(local_path, f)) for f in required_files)
 
     if files_exist:
-        print(f"✅ Found local tokenizer at {local_path}")
+        print(f"Found local tokenizer at {local_path}")
         return tokenizer_class.from_pretrained(local_path)
     else:
-        print(f"⬇️ Downloading tokenizer from Hugging Face: {tokenizer_id}")
+        print(f"Downloading tokenizer from Hugging Face: {tokenizer_id}")
         tokenizer = tokenizer_class.from_pretrained(tokenizer_id)
         tokenizer.save_pretrained(local_path)
-        print(f"📦 Saved tokenizer to {local_path}")
+        print(f"Saved tokenizer to {local_path}")
         return tokenizer
 
 
 def clear_huggingface_cache():
     """Optionally remove .cache files to save space after saving locally."""
     if os.path.exists(HF_CACHE_DIR):
-        print(f"🧹 Deleting Hugging Face cache at {HF_CACHE_DIR}...")
+        print(f"Deleting Hugging Face cache at {HF_CACHE_DIR}...")
         shutil.rmtree(HF_CACHE_DIR)
-        print("🗑️ Cache cleared.")
+        print("Cache cleared.")
     else:
-        print("ℹ️ No Hugging Face cache found.")
+        print("No Hugging Face cache found.")
 
 
 # ==== Load all models/tokenizers ====
