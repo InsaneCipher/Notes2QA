@@ -5,3 +5,4 @@ explanations/*
 !explanations/example_material.txt
 questions/*
 !questions/.gitkeep
+ideas.txt
