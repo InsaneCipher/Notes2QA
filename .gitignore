@@ -8,3 +8,4 @@ explanations/*
 questions/*
 !questions/.gitkeep
 ideas.txt
+app.spec
