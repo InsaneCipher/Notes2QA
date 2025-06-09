@@ -11,6 +11,9 @@ from pathlib import Path
 import shutil
 from docx import Document
 import logging
+import webview
+import threading
+
 os.environ["HF_HUB_DISABLE_SYMLINKS_WARNING"] = "1"
 logging.getLogger("transformers").setLevel(logging.ERROR)
 
@@ -207,6 +210,10 @@ def index():
     return render_template('index.html', questions=questions, filename=filename)
 
 
+def run_flask():
+    app.run()
+
+
 @app.route('/clear_cache', methods=['POST'])
 def clear_cache():
     """Clear cached explanation files."""
@@ -238,4 +245,8 @@ def download_questions():
 
 if __name__ == '__main__':
     os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-    app.run(debug=True)
+    os.makedirs("explanations", exist_ok=True)
+    os.makedirs("questions", exist_ok=True)
+    threading.Thread(target=run_flask, daemon=True).start()
+    webview.create_window("Flask App", "http://127.0.0.1:5000/")
+    webview.start()
