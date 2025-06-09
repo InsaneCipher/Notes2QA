@@ -6,11 +6,13 @@ import nltk
 from nltk.tokenize import sent_tokenize
 from random import shuffle
 from pptx import Presentation
-from keybert import KeyBERT
 from pdfminer.high_level import extract_text
 from pathlib import Path
 import shutil
 from docx import Document
+import logging
+os.environ["HF_HUB_DISABLE_SYMLINKS_WARNING"] = "1"
+logging.getLogger("transformers").setLevel(logging.ERROR)
 
 # Download necessary NLTK data
 nltk.download('punkt')
@@ -22,9 +24,9 @@ QG_TOKENIZER_ID = "t5-base"
 SUMMARIZER_ID = "sshleifer/distilbart-cnn-12-6"
 
 # Local save paths
-QG_MODEL_PATH = "./models/qg-model"
-QG_TOKENIZER_PATH = "./models/qg-tokenizer"
-SUM_MODEL_PATH = "./models/summarizer"
+QG_MODEL_PATH = "models/qg-model"
+QG_TOKENIZER_PATH = "models/qg-tokenizer"
+SUM_MODEL_PATH = "models/summarizer"
 
 # Hugging Face cache location (default)
 HF_CACHE_DIR = os.path.expanduser("~/.cache/huggingface/hub")
