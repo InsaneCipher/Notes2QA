@@ -1,5 +1,6 @@
 models/
 build/
+dist/
 uploads/*
 !uploads/example_material.txt
 explanations/*
