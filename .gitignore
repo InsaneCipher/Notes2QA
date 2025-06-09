@@ -1,4 +1,5 @@
 models/
+build/
 uploads/*
 !uploads/example_material.txt
 explanations/*
@@ -6,4 +7,3 @@ explanations/*
 questions/*
 !questions/.gitkeep
 ideas.txt
-build/
