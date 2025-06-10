@@ -7,7 +7,4 @@
     <orderEntry type="jdk" jdkName="Python 3.11 (Notes2QA)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
-  <component name="PackageRequirementsSettings">
-    <option name="modifyBaseFiles" value="true" />
-  </component>
 </module>
